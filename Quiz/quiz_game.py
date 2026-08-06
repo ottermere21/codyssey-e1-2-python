@@ -122,7 +122,15 @@ class QuizGame:
         print("\n[퀴즈 추가] 기능은 현재 개발 중입니다.")
 
     def view_quizzes(self):
-        print("\n[퀴즈 목록 보기] 기능은 현재 개발 중입니다.")
+        """저장된 전체 퀴즈 목록 출력"""
+        if not self.quizzes:
+            print("\n⚠️ 등록된 퀴즈가 없습니다. 퀴즈를 먼저 추가해 주세요.")
+            return
+
+        print(f"\n=== 등록된 퀴즈 목록 (총 {len(self.quizzes)}개) ===")
+        for i, q in enumerate(self.quizzes, 1):
+            q.display(i)
+            print(f"  👉 정답: {q.answer}번")
 
     def view_best_score(self):
         print("\n[최고 점수 확인] 기능은 현재 개발 중입니다.")
