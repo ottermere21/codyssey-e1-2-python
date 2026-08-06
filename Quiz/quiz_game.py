@@ -116,7 +116,35 @@ class QuizGame:
             print(f"⚠️ 파일 저장 중 오류가 발생했습니다: {e}")
 
     def play_quiz(self):
-        print("\n[퀴즈 풀기] 기능은 현재 개발 중입니다.")
+        """퀴즈 풀기 진행"""
+        if not self.quizzes:
+            print("\n⚠️ 등록된 퀴즈가 없습니다. 퀴즈를 먼저 추가해 주세요.")
+            return
+
+        print("\n🏁 반려동물 상식 퀴즈를 시작합니다!")
+        score = 0
+        total = len(self.quizzes)
+
+        for i, q in enumerate(self.quizzes, 1):
+            q.display(i)
+            # 1~4 범위 내 객관식 정답 입력 검증 수행
+            user_ans = input_with_validation("정답을 선택하세요 (1~4): ", int, (1, 4))
+            
+            if q.check_answer(user_ans):
+                print("⭕ 정답입니다!")
+                score += 1
+            else:
+                print(f"❌ 오답입니다. (정답: {q.answer}번)")
+
+        print(f"\n📢 게임 종료! 최종 점수: {score} / {total} 점")
+
+        # 최고 점수 갱신 확인 및 저장
+        if score > self.best_score:
+            print(f"🎉 축하합니다! 최고 점수가 경신되었습니다! ({self.best_score}점 -> {score}점)")
+            self.best_score = score
+            self.save_data()
+        else:
+            print(f"현재 최고 점수 기록: {self.best_score}점")
 
     def add_quiz(self):
         """새로운 퀴즈 추가"""
