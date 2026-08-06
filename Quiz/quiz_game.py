@@ -162,28 +162,33 @@ class QuizGame:
             print(f"🏆 현재 기록된 최고 점수: {self.best_score}점")
 
     def run(self):
-        """메인 메뉴 루프 실행"""
-        while True:
-            print("\n=== 반려동물 상식 퀴즈 게임 ===")
-            print("1. 퀴즈 풀기")
-            print("2. 퀴즈 추가")
-            print("3. 퀴즈 목록 보기")
-            print("4. 최고 점수 확인")
-            print("5. 종료")
-            
-            # 1~5 범위의 메뉴 입력 검증 수행
-            choice = input_with_validation("메뉴를 선택하세요: ", int, (1, 5))
-            
-            if choice == 1:
-                self.play_quiz()
-            elif choice == 2:
-                self.add_quiz()
-            elif choice == 3:
-                self.view_quizzes()
-            elif choice == 4:
-                self.view_best_score()
-            elif choice == 5:
-                print("프로그램을 종료합니다. 감사합니다!")
-                break
+        """메인 메뉴 루프 실행 (강제 종료 예외 처리 포함)"""
+        try:
+            while True:
+                print("\n=== 반려동물 상식 퀴즈 게임 ===")
+                print("1. 퀴즈 풀기")
+                print("2. 퀴즈 추가")
+                print("3. 퀴즈 목록 보기")
+                print("4. 최고 점수 확인")
+                print("5. 종료")
+                
+                # 1~5 범위의 메뉴 입력 검증 수행
+                choice = input_with_validation("메뉴를 선택하세요: ", int, (1, 5))
+                
+                if choice == 1:
+                    self.play_quiz()
+                elif choice == 2:
+                    self.add_quiz()
+                elif choice == 3:
+                    self.view_quizzes()
+                elif choice == 4:
+                    self.view_best_score()
+                elif choice == 5:
+                    print("프로그램을 종료합니다. 감사합니다!")
+                    break
+        except (KeyboardInterrupt, EOFError):
+            print("\n\n👋 사용자에 의해 프로그램이 강제 중단되었습니다.")
+            print("진행 사항을 안전하게 저장하고 종료합니다.")
+            self.save_data()
 
 
