@@ -133,7 +133,12 @@ class QuizGame:
             print(f"  👉 정답: {q.answer}번")
 
     def view_best_score(self):
-        print("\n[최고 점수 확인] 기능은 현재 개발 중입니다.")
+        """최고 점수 확인"""
+        print("\n=== 최고 점수 확인 ===")
+        if self.best_score == 0:
+            print("아직 퀴즈를 풀지 않았거나 기록이 없습니다. 첫 퀴즈에 도전해 보세요! (현재 최고 점수: 0점)")
+        else:
+            print(f"🏆 현재 기록된 최고 점수: {self.best_score}점")
 
     def run(self):
         """메인 메뉴 루프 실행"""
