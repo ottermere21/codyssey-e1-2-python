@@ -1,1 +1,13 @@
 mission1-2.png
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local database / state files
+state.json
+
+# macOS system files
+.DS_Store
