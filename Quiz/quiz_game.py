@@ -119,7 +119,28 @@ class QuizGame:
         print("\n[퀴즈 풀기] 기능은 현재 개발 중입니다.")
 
     def add_quiz(self):
-        print("\n[퀴즈 추가] 기능은 현재 개발 중입니다.")
+        """새로운 퀴즈 추가"""
+        print("\n=== 새 퀴즈 추가 ===")
+        
+        # 1. 문제 입력 받기
+        question = input_with_validation("문제 질문을 입력하세요: ", str)
+        
+        # 2. 선택지 4개 입력 받기
+        choices = []
+        for i in range(1, 5):
+            choice = input_with_validation(f"선택지 {i}번을 입력하세요: ", str)
+            choices.append(choice)
+            
+        # 3. 정답 입력 받기 (1~4 범위 검사)
+        answer = input_with_validation("정답 번호를 입력하세요 (1~4): ", int, (1, 4))
+        
+        # 4. Quiz 인스턴스 생성 및 리스트 추가
+        new_quiz = Quiz(question, choices, answer)
+        self.quizzes.append(new_quiz)
+        
+        # 5. 저장
+        self.save_data()
+        print("\n🎉 새로운 퀴즈가 성공적으로 추가되었습니다!")
 
     def view_quizzes(self):
         """저장된 전체 퀴즈 목록 출력"""
