@@ -119,37 +119,76 @@ class QuizGame:
         print("\n[퀴즈 풀기] 기능은 현재 개발 중입니다.")
 
     def add_quiz(self):
-        print("\n[퀴즈 추가] 기능은 현재 개발 중입니다.")
+        """새로운 퀴즈 추가"""
+        print("\n=== 새 퀴즈 추가 ===")
+        
+        # 1. 문제 입력 받기
+        question = input_with_validation("문제 질문을 입력하세요: ", str)
+        
+        # 2. 선택지 4개 입력 받기
+        choices = []
+        for i in range(1, 5):
+            choice = input_with_validation(f"선택지 {i}번을 입력하세요: ", str)
+            choices.append(choice)
+            
+        # 3. 정답 입력 받기 (1~4 범위 검사)
+        answer = input_with_validation("정답 번호를 입력하세요 (1~4): ", int, (1, 4))
+        
+        # 4. Quiz 인스턴스 생성 및 리스트 추가
+        new_quiz = Quiz(question, choices, answer)
+        self.quizzes.append(new_quiz)
+        
+        # 5. 저장
+        self.save_data()
+        print("\n🎉 새로운 퀴즈가 성공적으로 추가되었습니다!")
 
     def view_quizzes(self):
-        print("\n[퀴즈 목록 보기] 기능은 현재 개발 중입니다.")
+        """저장된 전체 퀴즈 목록 출력"""
+        if not self.quizzes:
+            print("\n⚠️ 등록된 퀴즈가 없습니다. 퀴즈를 먼저 추가해 주세요.")
+            return
+
+        print(f"\n=== 등록된 퀴즈 목록 (총 {len(self.quizzes)}개) ===")
+        for i, q in enumerate(self.quizzes, 1):
+            q.display(i)
+            print(f"  👉 정답: {q.answer}번")
 
     def view_best_score(self):
-        print("\n[최고 점수 확인] 기능은 현재 개발 중입니다.")
+        """최고 점수 확인"""
+        print("\n=== 최고 점수 확인 ===")
+        if self.best_score == 0:
+            print("아직 퀴즈를 풀지 않았거나 기록이 없습니다. 첫 퀴즈에 도전해 보세요! (현재 최고 점수: 0점)")
+        else:
+            print(f"🏆 현재 기록된 최고 점수: {self.best_score}점")
 
     def run(self):
-        """메인 메뉴 루프 실행"""
-        while True:
-            print("\n=== 반려동물 상식 퀴즈 게임 ===")
-            print("1. 퀴즈 풀기")
-            print("2. 퀴즈 추가")
-            print("3. 퀴즈 목록 보기")
-            print("4. 최고 점수 확인")
-            print("5. 종료")
-            
-            # 1~5 범위의 메뉴 입력 검증 수행
-            choice = input_with_validation("메뉴를 선택하세요: ", int, (1, 5))
-            
-            if choice == 1:
-                self.play_quiz()
-            elif choice == 2:
-                self.add_quiz()
-            elif choice == 3:
-                self.view_quizzes()
-            elif choice == 4:
-                self.view_best_score()
-            elif choice == 5:
-                print("프로그램을 종료합니다. 감사합니다!")
-                break
+        """메인 메뉴 루프 실행 (강제 종료 예외 처리 포함)"""
+        try:
+            while True:
+                print("\n=== 반려동물 상식 퀴즈 게임 ===")
+                print("1. 퀴즈 풀기")
+                print("2. 퀴즈 추가")
+                print("3. 퀴즈 목록 보기")
+                print("4. 최고 점수 확인")
+                print("5. 종료")
+                
+                # 1~5 범위의 메뉴 입력 검증 수행
+                choice = input_with_validation("메뉴를 선택하세요: ", int, (1, 5))
+                
+                if choice == 1:
+                    self.play_quiz()
+                elif choice == 2:
+                    self.add_quiz()
+                elif choice == 3:
+                    self.view_quizzes()
+                elif choice == 4:
+                    self.view_best_score()
+                elif choice == 5:
+                    print("프로그램을 종료합니다. 감사합니다!")
+                    break
+        except (KeyboardInterrupt, EOFError):
+            print("\n\n👋 사용자에 의해 프로그램이 강제 중단되었습니다.")
+            print("진행 사항을 안전하게 저장하고 종료합니다.")
+            self.save_data()
 
 
