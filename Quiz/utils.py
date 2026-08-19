@@ -14,7 +14,7 @@ def input_with_validation(prompt: str, input_type=int, val_range: tuple = None):
             
             # 2. 빈 입력 예외 처리
             if not cleaned_input:
-                print("⚠️ 빈 입력은 허용되지 않습니다. 다시 입력해주세요.")
+                print("⚠️ 빈 입력은 허용되지 않습니다. 다시 입력해주세요.\n")
                 continue
 
             # 3. 타입 변환 검사
@@ -24,14 +24,16 @@ def input_with_validation(prompt: str, input_type=int, val_range: tuple = None):
             if input_type is int and val_range is not None:
                 min_val, max_val = val_range
                 if not (min_val <= converted_value <= max_val):
-                    print(f"⚠️ 입력 범위를 벗어났습니다. ({min_val} ~ {max_val} 사이의 숫자를 입력해주세요.)")
+                    print(f"⚠️ 입력 범위를 벗어났습니다. ({min_val} ~ {max_val} 사이의 숫자를 입력해주세요.)\n")
                     continue
                     
             return converted_value
 
         except ValueError:
+            # int 타입이고, 정수 범위를 벗어난 경우
             if input_type is int:
-                print("⚠️ 유효한 숫자를 입력해 주세요. (예: 1, 2, 3)")
-            else:
-                print("⚠️ 입력 형식이 올바르지 않습니다. 다시 시도해 주세요.")
+                print("⚠️ 유효한 숫자를 입력해 주세요. (예: 1, 2, 3)\n")
+            # 그 외의 경우 (타입 변환 실패)
+            else: 
+                print("⚠️ 입력 형식이 올바르지 않습니다. 다시 시도해 주세요.\n")
             continue
