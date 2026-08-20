@@ -160,7 +160,9 @@ $ git push origin main
 $ git pull origin main
 ```
 
-수정 테스트
+![git clone](./screenshots/git_clone.png)
+
+![git pull](./screenshots/git_pull.png)
 
 
 
