@@ -248,8 +248,5 @@ class QuizGame:
                     break
         # Ctrl+C 또는 Ctrl+D 로 프로그램 강제 종료
         except (KeyboardInterrupt, EOFError):
-            print("\n\n👋 사용자에 의해 프로그램이 강제 중단되었습니다.")
-            print("진행 사항을 안전하게 저장하고 종료합니다.")
-            self.save_data()
-
+            print("\n\n👋  사용자에 의해 프로그램이 강제 중단되었습니다. 프로그램을 종료합니다.")
 
