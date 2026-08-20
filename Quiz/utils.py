@@ -21,7 +21,7 @@ def input_with_validation(prompt: str, input_type=int, val_range: tuple = None):
             converted_value = input_type(cleaned_input)
             
             # 4. 정수 범위 검사
-            if input_type is int and val_range is not None:
+            if (input_type is int) and (val_range is not None):
                 min_val, max_val = val_range
                 if not (min_val <= converted_value <= max_val):
                     print(f"⚠️ 입력 범위를 벗어났습니다. ({min_val} ~ {max_val} 사이의 숫자를 입력해주세요.)\n")
