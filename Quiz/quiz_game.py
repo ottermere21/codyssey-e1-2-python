@@ -39,11 +39,18 @@ class Quiz:
         return cls(data["question"], data["choices"], data["answer"])
 
 
+
+
+
 class QuizGame:
     def __init__(self, filepath: str = "state.json"):
         # 실행 디렉터리에 관계없이 항상 프로젝트 루트에 state.json이 생성되도록 경로 구성
+        # 터미널의 어떤 위치에서 실행하든, 현재 파일의 위치로 부모 폴더를 찾은 후 조합 -> 에러X
+        # .py 파일의 절대 경로
         script_dir = os.path.dirname(os.path.abspath(__file__))
+        # .py 파일이 속한 디렉터리의 부모 디렉터리의 경로를 구함 => 프로젝트 루트
         project_root = os.path.dirname(script_dir)
+        # 프로젝트 루트와 state.json 파일 이름 합치기
         self.filepath = os.path.join(project_root, filepath)
         
         self.quizzes = []
@@ -239,6 +246,7 @@ class QuizGame:
                 elif choice == 5:
                     print("프로그램을 종료합니다. ")
                     break
+        # Ctrl+C 또는 Ctrl+D 로 프로그램 강제 종료
         except (KeyboardInterrupt, EOFError):
             print("\n\n👋 사용자에 의해 프로그램이 강제 중단되었습니다.")
             print("진행 사항을 안전하게 저장하고 종료합니다.")
